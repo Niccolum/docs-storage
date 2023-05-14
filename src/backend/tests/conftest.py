@@ -13,13 +13,13 @@ def app() -> FastAPI:
     return create_app()
 
 
-@pytest.fixture
+@pytest.fixture()
 async def test_client(app: FastAPI) -> t.AsyncGenerator[AsyncClient, None]:
     async with AsyncClient(app=app, base_url="http://test") as c:
         yield c
 
 
-@pytest.fixture
+@pytest.fixture()
 def override_settings(app: FastAPI) -> t.Callable[[t.Any, t.Any], contextlib.AbstractContextManager[None]]:
     @contextlib.contextmanager
     def wrapper(key: t.Any, value: t.Any) -> t.Iterator[None]:

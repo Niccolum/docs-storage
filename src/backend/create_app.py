@@ -22,7 +22,6 @@ from backend.api.router import api_router
 from backend.settings.app import get_settings
 from backend.settings.log import logging_setup
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -73,7 +72,11 @@ def create_app() -> FastAPI:
         app.add_middleware(
             HSTS,
             Option={
-                "max-age": 60 * 60 * 24 * 365 * 2,  # recommended value by https://hstspreload.org/#deployment-recommendations
+                "max-age": 60
+                * 60
+                * 24
+                * 365
+                * 2,  # recommended value by https://hstspreload.org/#deployment-recommendations
                 "preload": True,
             },
         )

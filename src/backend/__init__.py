@@ -1,12 +1,11 @@
 import logging
 
 from single_source import (
-    get_version,
     VersionNotFoundError,
+    get_version,
 )
 
 from backend.settings.app import PROJECT_DIR
-
 
 logger = logging.getLogger(__name__)
 path_to_pyproject_toml = PROJECT_DIR

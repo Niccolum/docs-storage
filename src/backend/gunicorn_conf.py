@@ -1,11 +1,6 @@
-"""Example from https://github.com/benoitc/gunicorn/blob/master/examples/example_config.py .
-Helps with it https://docs.gunicorn.org/en/stable/settings.html
-"""
-
 import os
 
 from uvicorn.workers import UvicornWorker
-
 
 # Server settings
 bind = "0.0.0.0:8080"
