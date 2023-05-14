@@ -1,65 +1,28 @@
 [flake8]
-max-complexity=10
 exclude=
     .venv,
     .git,
     __pycache__,
 
 select=
-    # E502 the backslash is redundant between brackets
-    E502,
-    # E7** Statement
-    E7,
-    # E9** Runtime errors
-    E9,
-    # W605 invalid escape sequence ‘x’
-    W605,
-    # W606 ‘async’ and ‘await’ are reserved keywords starting with Python 3.7
-    W606,
-    # all pyflakes codes
-    F,
-    # McCabe complexity
-    C901,
-    # N8** pep8-naming
-    N8,
-    # flake8-blind-except B902 blind except Exception: statement
-    B902,
-    # flake8-bugbear
-    # B006 Do not use mutable data structures for argument defaults.
-    B006,
-    # B007 Loop control variable not used within the loop body. If this is intended, start the name with an underscore.
-    B007,
-    # B012 Use of break, continue or return inside finally blocks will silence exceptions or override return values from the try or except blocks.
-    # To silence an exception, do it explicitly in the except block. To properly use a break, continue or return refactor your code
-    # so these statements are not in the finally block.
-    B012,
-    # B013 A length-one tuple literal is redundant. Write except SomeError: instead of except (SomeError,):.
-    B013,
-    # B014 Redundant exception types in except (Exception, TypeError):. Write except Exception:, which catches exactly the same exceptions.
-    B014,
-    # B015 Pointless comparison. This comparison does nothing but waste CPU instructions. Either prepend assert or remove it.
-    B015,
-    # flake8-builtins
-    A00,
-    # flake8-comprehensions
-    C4,
-    # flake8-print
-    T,
-    # flake8-2020
-    YTT,
-    # flake8-requirements
-    I9,
+    # flake8-mutable
+    M511,
+    # flake8-noqa
+    NQA,
+    # flake8-warnings
+    WS,
+    # flake8-class-attributes-order
+    CCE,
+    # flake8-functions-names
+    FNE,
+    # flake8-newspaper-style
+    NEW100,
     
 
 ignore=
-    # F504 % format unused named arguments
-    F504,
-    # F522 .format(...) unused named arguments
-    F522,
-    # T484 Relative import climbs too many namespaces
-    T484,
-    # T499 Internal mypy traceback, stderr output, or an unmatched line.
-    T499,
-
-per-file-ignores=
-    **/__init__.py:F401,F403
+    # NQA102 "# noqa: X000" has no matching violations. False-positive with B902.
+    NQA102,
+    # FNE003 Name of the function uses save, but not uses to
+    FNE003,
+    # FNE008 Name of functions ends with it's first argument name
+    FNE008,

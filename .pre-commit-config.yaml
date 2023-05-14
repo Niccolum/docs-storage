@@ -1,81 +1,58 @@
-exclude: "venv|node_modules|.git"
+exclude: ".venv|.git"
 default_stages: [commit]
 fail_fast: false
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.4.0
     hooks:
-      - id: end-of-file-fixer
       - id: check-case-conflict
       - id: check-merge-conflict
       - id: check-yaml
       - id: check-added-large-files
         args: ["--maxkb=500"]
-
-  - repo: https://github.com/myint/eradicate
-    rev: v2.0.0
-    hooks:
-      - id: eradicate
-
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v2.31.0
-    hooks:
-      - id: pyupgrade
-        args: ["--py310-plus"]
-
-  - repo: https://github.com/psf/black
-    rev: 21.12b0
-    hooks:
-      - id: black
-
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.2.1
-    hooks:
-      - id: prettier
-
-  - repo: https://github.com/asottile/yesqa
-    rev: v1.3.0
-    hooks:
-      - id: yesqa
-
-  - repo: https://github.com/MarcoGorelli/absolufy-imports
-    rev: v0.3.0
-    hooks:
-      - id: absolufy-imports
-
-  - repo: https://github.com/pycqa/isort
-    rev: 5.10.1
-    hooks:
-      - id: isort
-        name: isort (python)
-
-  - repo: https://github.com/FHPythonUtils/LicenseCheck
-    rev: "2022"
-    hooks:
-      - id: licensecheck
-
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.1
-    hooks:
-      - id: bandit
-        args: ["--recursive", "-c", "pyproject.toml"]
-        additional_dependencies: [toml]
+      - id: end-of-file-fixer
 
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: v1.2.2
+    rev: v1.3.0
     hooks:
       - id: python-safety-dependencies-check
-        args: []
+        language_version: python3.10
+        files: pyproject.toml
 
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.2
+  - repo: https://github.com/python-poetry/poetry
+    rev: "1.2"
+    hooks:
+      - id: poetry-check
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.4
+    hooks:
+      - id: codespell
+        language_version: python3.11
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    # Ruff version.
+    rev: "v0.0.267"
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
     hooks:
       - id: flake8
+        language_version: python3.11
+        entry: flake8
+        types: [python]
+        require_serial: true
+        args: ["--config=.flake8"]
         additional_dependencies:
-          [pep8-naming, flake8-blind-except, flake8-bugbear, flake8-builtins, flake8-comprehensions, flake8-print, flake8-2020]
-
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.931
-    hooks:
-      - id: mypy
+          [
+            flake8-mutable,
+            flake8-noqa,
+            flake8-warnings,
+            flake8-class-attributes-order,
+            flake8-functions-names,
+            flake8-newspaper-style,
+          ]
