@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 
 from backend.schema import base
-from backend.settings import app as app_settings
+from backend.settings import base as app_settings
 
 router = APIRouter()
 
