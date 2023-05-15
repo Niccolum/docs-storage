@@ -1,5 +1,6 @@
 import contextlib
-import typing as t
+from collections.abc import AsyncGenerator, Callable, Iterator
+from typing import Any
 
 import pytest
 from fastapi import FastAPI
@@ -14,15 +15,15 @@ def app() -> FastAPI:
 
 
 @pytest.fixture()
-async def test_client(app: FastAPI) -> t.AsyncGenerator[AsyncClient, None]:
-    async with AsyncClient(app=app, base_url="http://test") as c:
+async def test_client(app: FastAPI) -> AsyncGenerator[AsyncClient, None]:
+    async with AsyncClient(app=app, base_url="http://localhost") as c:
         yield c
 
 
 @pytest.fixture()
-def override_settings(app: FastAPI) -> t.Callable[[t.Any, t.Any], contextlib.AbstractContextManager[None]]:
+def override_settings(app: FastAPI) -> Callable[[Any, Any], contextlib.AbstractContextManager[None]]:
     @contextlib.contextmanager
-    def wrapper(key: t.Any, value: t.Any) -> t.Iterator[None]:
+    def wrapper(key: Any, value: Any) -> Iterator[None]:
         try:
             app.dependency_overrides[key] = value
             yield
