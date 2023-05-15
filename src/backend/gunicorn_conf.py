@@ -2,8 +2,9 @@ import os
 
 from uvicorn.workers import UvicornWorker
 
+_app_port = os.getenv("APP_PORT", "8080")
 # Server settings
-bind = "0.0.0.0:8080"
+bind = f"0.0.0.0:{_app_port}"
 backlog = 2048  # default
 proc_name = None  # default
 
