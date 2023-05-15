@@ -10,6 +10,7 @@ class_attributes_order =
     magic_method,
     method,
     nested_class,
+
 exclude=
     .venv,
     .git,
@@ -28,7 +29,6 @@ select=
     FNE,
     # flake8-newspaper-style
     NEW100,
-
 
 ignore=
     # NQA102 "# noqa: X000" has no matching violations. False-positive with B902.

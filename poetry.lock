@@ -465,18 +465,6 @@ python-versions = "*"
 pytest = "*"
 
 [[package]]
-name = "pytest-dotenv"
-version = "0.5.2"
-description = "A py.test plugin that parses environment files before running tests"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-pytest = ">=5.0.0"
-python-dotenv = ">=0.9.1"
-
-[[package]]
 name = "pytest-lazy-fixture"
 version = "0.6.3"
 description = "It helps to use fixtures in pytest.mark.parametrize"
@@ -655,7 +643,7 @@ test = ["covdefaults (>=2.3)", "coverage-enable-subprocess (>=1)", "coverage (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.11"
-content-hash = "54829462f7da31e6551dd2ed5a02106c614aa7908df8ecb63270236979bfe9b3"
+content-hash = "da6d51d14d169ad6a4657b2272d843b06b697a798150919d0cd26f54cf01d14b"
 
 [metadata.files]
 anyio = []
@@ -700,7 +688,6 @@ pytest = []
 pytest-asyncio = []
 pytest-cov = []
 pytest-custom-report = []
-pytest-dotenv = []
 pytest-lazy-fixture = []
 pytest-nice-parametrize = []
 pytest-reverse = []
