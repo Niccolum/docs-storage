@@ -2,3 +2,5 @@
 __pycache__
 .coverage
 .secret.env
+.ruff_cache
+.venv
