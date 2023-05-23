@@ -23,5 +23,7 @@ async def test_healthcheck(
     with override_settings(app_config.get_settings, mock_service_name):
         url = app.router.url_path_for("healthcheck")
         response = await test_client.get(url)
+        print(response.text)
+        print(response.json())
         assert response.status_code == status.HTTP_200_OK
         assert response.json() == {"message": f"Application {test_app_name} started"}
