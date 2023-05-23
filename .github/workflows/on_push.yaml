@@ -90,7 +90,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: .
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
