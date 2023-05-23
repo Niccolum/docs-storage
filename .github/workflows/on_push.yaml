@@ -59,18 +59,9 @@ jobs:
       - name: Run tests
         run: poetry run pytest
 
-  create_git_tag:
-    runs-on: [ubuntu-latest]
-    needs: [run_tests]
-
-    steps:
-      - uses: phish108/autotag-action@v1.1.64
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN}}
-
   deploy_to_dockerhub:
     runs-on: [ubuntu-latest]
-    needs: [create_git_tag]
+    needs: [run_tests]
 
     steps:
       - uses: actions/checkout@v3
@@ -81,14 +72,20 @@ jobs:
           username: niccolum
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+      - name: Create tag in docker
+        id: tags
+        uses: phish108/autotag-action@v1.1.64
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN}}
+
       - name: Extract tags for Docker
         id: docker_meta
         uses: docker/metadata-action@v4
         with:
           images: niccolum/docs-storage
           tags: |
-            type=pep440,pattern=v{{major}},enable={{is_default_branch}}
-            type=pep440,pattern={{version}},enable={{is_default_branch}}
+            type=pep440,pattern=v{{major}},enable={{is_default_branch}},value=${{ steps.tags.outputs.new-tag }}
+            type=pep440,pattern={{version}},enable={{is_default_branch}},value=${{ steps.tags.outputs.new-tag }}
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push
