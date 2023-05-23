@@ -1,4 +1,4 @@
-name: Run tests on any Push event
+name: ci
 
 on:
   push:
@@ -87,7 +87,8 @@ jobs:
         with:
           images: niccolum/docs-storage
           tags: |
-            type=pep440,pattern={{version}}
+            type=pep440,pattern=v{{major}},enable={{is_default_branch}}
+            type=pep440,pattern={{version}},enable={{is_default_branch}}
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push
