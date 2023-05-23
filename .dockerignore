@@ -1,0 +1,6 @@
+.pytest_cache
+__pycache__
+.coverage
+.secret.env
+.ruff_cache
+.venv
