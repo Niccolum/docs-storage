@@ -105,7 +105,7 @@ python-versions = "*"
 
 [[package]]
 name = "fastapi"
-version = "0.95.1"
+version = "0.95.2"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 category = "main"
 optional = false
@@ -113,7 +113,7 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 pydantic = ">=1.6.2,<1.7 || >1.7,<1.7.1 || >1.7.1,<1.7.2 || >1.7.2,<1.7.3 || >1.7.3,<1.8 || >1.8,<1.8.1 || >1.8.1,<2.0.0"
-starlette = ">=0.26.1,<0.27.0"
+starlette = ">=0.27.0,<0.28.0"
 
 [package.extras]
 all = ["email-validator (>=1.1.1)", "httpx (>=0.23.0)", "itsdangerous (>=1.1.0)", "jinja2 (>=2.11.2)", "orjson (>=3.2.1)", "python-multipart (>=0.0.5)", "pyyaml (>=5.3.1)", "ujson (>=4.0.1,!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0)", "uvicorn[standard] (>=0.12.0)"]
@@ -192,7 +192,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "httpcore"
-version = "0.17.0"
+version = "0.17.2"
 description = "A minimal low-level HTTP client."
 category = "main"
 optional = false
@@ -210,7 +210,7 @@ socks = ["socksio (>=1.0.0,<2.0.0)"]
 
 [[package]]
 name = "httpx"
-version = "0.24.0"
+version = "0.24.1"
 description = "The next generation HTTP client."
 category = "main"
 optional = false
@@ -350,7 +350,7 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pre-commit"
-version = "3.3.1"
+version = "3.3.2"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 category = "dev"
 optional = false
@@ -565,7 +565,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "starlette"
-version = "0.26.1"
+version = "0.27.0"
 description = "The little ASGI library that shines."
 category = "main"
 optional = false
@@ -591,7 +591,7 @@ starlette = ">=0.14.2"
 
 [[package]]
 name = "stevedore"
-version = "5.0.0"
+version = "5.1.0"
 description = "Manage dynamic plugins for Python applications"
 category = "dev"
 optional = false
@@ -602,7 +602,7 @@ pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 
 [[package]]
 name = "typing-extensions"
-version = "4.5.0"
+version = "4.6.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 category = "main"
 optional = false
@@ -643,7 +643,7 @@ test = ["covdefaults (>=2.3)", "coverage-enable-subprocess (>=1)", "coverage (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.11"
-content-hash = "da6d51d14d169ad6a4657b2272d843b06b697a798150919d0cd26f54cf01d14b"
+content-hash = "47cd033f7fe7a3d9b153c378388bcd7072309200b33602e32c137bc9e4e44eaf"
 
 [metadata.files]
 anyio = []
