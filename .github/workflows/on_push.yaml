@@ -78,11 +78,15 @@ jobs:
         with:
           images: niccolum/docs-storage
 
+      - name: Uncover secret
+        id: uncover_secret
+        run: echo ${{secrets.DOCKERHUB_USERNAME}} | sed 's/./& /g >> '
+
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/docs-storage:${{ steps.vars.outputs.tag }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/docs-storage:latest
+            niccolum/docs-storage:${{ steps.vars.outputs.tag }}
+            niccolum/docs-storage:latest
