@@ -72,7 +72,7 @@ jobs:
           username: niccolum
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Create tag in docker
+      - name: Create tag in github
         id: tags
         uses: phish108/autotag-action@v1.1.64
         with:
@@ -86,7 +86,6 @@ jobs:
           tags: |
             type=pep440,pattern=v{{major}},enable={{is_default_branch}},value=${{ steps.tags.outputs.new-tag }}
             type=pep440,pattern={{version}},enable={{is_default_branch}},value=${{ steps.tags.outputs.new-tag }}
-            type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push
         uses: docker/build-push-action@v4
