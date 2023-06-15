@@ -98,6 +98,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          file: src/docker/backend_Dockerfile
+          file: docker/backend_Dockerfile
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
