@@ -6,7 +6,7 @@ import httpx
 import pytest
 from fastapi import FastAPI, status
 
-from backend.settings import base as app_config
+from backend.settings.main import Settings, get_settings
 
 
 @pytest.mark.asyncio()
@@ -17,10 +17,10 @@ async def test_healthcheck(
 ):
     test_app_name = "testing_application"
 
-    def mock_service_name() -> app_config.Settings:
-        return app_config.Settings(app_name=test_app_name)  # pyright: ignore reportGeneralTypeIssues
+    def mock_service_name() -> Settings:
+        return Settings(app_name=test_app_name)  # pyright: ignore reportGeneralTypeIssues
 
-    with override_settings(app_config.get_settings, mock_service_name):
+    with override_settings(get_settings, mock_service_name):
         url = app.router.url_path_for("healthcheck")
         response = await test_client.get(url)
 
