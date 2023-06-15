@@ -1,9 +1,8 @@
 version: "3.4"
 
 services:
-  auth-backend:
-    container_name: auth-backend
-    hostname: auth-backend
+  docs-storage:
+    hostname: docs-storage
     build:
       context: ./
       dockerfile: src/docker/backend_Dockerfile
@@ -16,3 +15,10 @@ services:
         published: 8081
         protocol: tcp
         mode: host
+
+  mongo-db:
+    hostname: mongo-db
+    image: mongo:latest
+    restart: unless-stopped
+    env_file:
+      - env/dev/mongo.env

@@ -4,8 +4,8 @@ from fastapi import FastAPI
 
 from backend.api.router import api_router
 from backend.middlewares import set_middlewares
-from backend.settings.base import get_settings
 from backend.settings.log import logging_setup
+from backend.settings.main import get_settings
 
 logger = logging.getLogger(__name__)
 

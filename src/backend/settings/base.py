@@ -1,41 +1,20 @@
-from functools import lru_cache
-from typing import Any
+import os
+from pathlib import Path
 
-from pydantic import (
-    AnyHttpUrl,
-    BaseSettings,
-    root_validator,  # pyright: ignore reportUnknownVariableType
-)
+from single_source import get_version
 
-from backend.settings import ENVIRONMENT, PROJECT_DIR
+from backend.constants import Environment
 
-from .common import CommonSettings
-from .security import WebSecureSettings
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+PROJECT_DIR = BASE_DIR.parent.parent
 
+__version__: str = get_version(__name__, PROJECT_DIR, default_return="")  # pyright: ignore reportGeneralTypeIssues
 
-class Settings(CommonSettings, WebSecureSettings):
-    @root_validator
-    @classmethod
-    def cors_allow_origins_builder(cls, values: dict[str, Any]) -> dict[str, Any]:
-        result: list[AnyHttpUrl] = []
-        port = values["raw_app_port"]
-        scheme = "https" if values["https"] else "http"
-
-        for raw_host in values["raw_app_hosts"]:
-            host_url = AnyHttpUrl(url=f"{scheme}://{raw_host}:{port}", scheme=scheme)
-            result.append(host_url)
-
-        values["cors_allow_origins"] = result
-        return values
-
-    class Config(BaseSettings.Config):  # pyright: ignore reportIncompatibleVariableOverride
-        env_prefix = ""
-        env_file = [  # pyright: ignore reportUnknownVariableType
-            PROJECT_DIR / "env" / ENVIRONMENT.value / "public.env",
-            PROJECT_DIR / "env" / ENVIRONMENT.value / ".secret.env",
-        ]
+ENVIRONMENT = Environment(os.environ.get("ENVIRONMENT", Environment.DEVELOPMENT.value))
 
 
-@lru_cache
-def get_settings() -> Settings:
-    return Settings()  # pyright: ignore reportGeneralTypeIssues
+class SettingsConfigMixin:
+    env_file = [
+        PROJECT_DIR / "env" / ENVIRONMENT.value / "public.env",
+        PROJECT_DIR / "env" / ENVIRONMENT.value / ".secret.env",
+    ]

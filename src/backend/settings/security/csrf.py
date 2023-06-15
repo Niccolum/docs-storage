@@ -1,7 +1,4 @@
-from pydantic import (
-    BaseSettings,
-    SecretStr,  # pyright: ignore reportUnknownVariableType
-)
+from pydantic import BaseSettings, SecretStr
 
 
 class CsrfSettings(BaseSettings):
