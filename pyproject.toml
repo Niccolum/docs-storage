@@ -50,7 +50,7 @@ pretty = true
 
 [tool.pytest.ini_options]
 addopts = "--cov-report term --reverse"
-norecursedirs = ".venv"
+norecursedirs = ".venv mongo_data"
 asyncio_mode = "auto"
 
 report_passed = "✔"
