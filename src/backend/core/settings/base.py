@@ -1,14 +1,17 @@
 import os
 from pathlib import Path
 
-from single_source import get_version
+import tomllib
 
-from backend.constants import Environment
+from backend.core.constants import Environment
 
-BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 PROJECT_DIR = BASE_DIR.parent.parent
 
-__version__: str = get_version(__name__, PROJECT_DIR, default_return="")  # pyright: ignore reportGeneralTypeIssues
+version_file: Path = PROJECT_DIR / "pyproject.toml"
+with version_file.open("rb") as fp:
+    data = tomllib.load(fp)
+__version__ = data["tool"]["poetry"]["version"]
 
 ENVIRONMENT = Environment(os.environ.get("ENVIRONMENT", Environment.DEVELOPMENT.value))
 

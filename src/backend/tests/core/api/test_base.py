@@ -6,7 +6,7 @@ import httpx
 import pytest
 from fastapi import FastAPI, status
 
-from backend.settings.main import Settings, get_settings
+from backend.core.settings import Settings, get_settings
 
 
 @pytest.mark.asyncio()

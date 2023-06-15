@@ -2,8 +2,8 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends
 
-from backend.schema import base
-from backend.settings.main import Settings, get_settings
+from backend.core.schema import base
+from backend.core.settings import Settings, get_settings
 
 router = APIRouter()
 

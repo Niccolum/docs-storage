@@ -22,7 +22,7 @@ from starlette_csrf.middleware import (
 if TYPE_CHECKING:
     from fastapi import FastAPI
 
-    from backend.settings.base import Settings
+    from backend.core.settings.base import Settings
 
 
 def set_middlewares(app: "FastAPI", settings: "Settings") -> None:
@@ -52,14 +52,24 @@ def _set_secure_middlewares(app: "FastAPI", settings: "Settings") -> None:
             "base-uri": settings.security.csp_base_uri,
             "form-action": settings.security.csp_form_action,
             "block-all-mixed-content": settings.security.csp_block_all_mixed_content,
+            "img-src": settings.security.csp_img_src,
         },
         script_nonce=settings.security.csp_script_nonce,
         style_nonce=settings.security.csp_style_nonce,
     )
-    app.add_middleware(ReferrerPolicy, Option={"Referrer-Policy": settings.security.referrer_policy})
-    app.add_middleware(xXSSProtection, Option={"X-XSS-Protection": settings.security.x_xss_protection})
-    app.add_middleware(XDNSPrefetchControl, Option={"X-DNS-Prefetch-Control": settings.security.x_dns_prefetch_control})
-    app.add_middleware(XFrame, Option={"X-Frame-Options": settings.security.x_frame_options})
+    app.add_middleware(
+        ReferrerPolicy, Option={"Referrer-Policy": settings.security.referrer_policy},
+    )
+    app.add_middleware(
+        xXSSProtection, Option={"X-XSS-Protection": settings.security.x_xss_protection},
+    )
+    app.add_middleware(
+        XDNSPrefetchControl,
+        Option={"X-DNS-Prefetch-Control": settings.security.x_dns_prefetch_control},
+    )
+    app.add_middleware(
+        XFrame, Option={"X-Frame-Options": settings.security.x_frame_options},
+    )
 
     app.add_middleware(
         TrustedHostMiddleware,

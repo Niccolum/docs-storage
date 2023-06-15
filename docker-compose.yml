@@ -5,16 +5,20 @@ services:
     hostname: docs-storage
     build:
       context: ./
-      dockerfile: src/docker/backend_Dockerfile
+      dockerfile: docker/backend_Dockerfile
     env_file:
       - env/dev/public.env
       - env/dev/.secret.env
+    environment:
+      - MONGO_HOST=mongo-db
     restart: unless-stopped
     ports:
       - target: 8081
         published: 8081
         protocol: tcp
         mode: host
+    depends_on:
+      - mongo-db
 
   mongo-db:
     hostname: mongo-db
@@ -22,3 +26,10 @@ services:
     restart: unless-stopped
     env_file:
       - env/dev/mongo.env
+    volumes:
+      - ./mongo_data:/data/db
+    ports:
+      - target: 27017
+        published: 27017
+        protocol: tcp
+        mode: host

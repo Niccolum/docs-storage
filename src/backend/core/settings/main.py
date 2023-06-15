@@ -6,14 +6,15 @@ from pydantic import (
     validator,
 )
 
-from backend.settings.base import SettingsConfigMixin
-
+from .base import SettingsConfigMixin
 from .common import CommonSettings
+from .mongo import MongoSettings
 from .security import WebSecureSettings
 
 
 class Settings(CommonSettings):
     security: WebSecureSettings = WebSecureSettings()
+    mongo: MongoSettings = MongoSettings()
 
     @validator("security", pre=True)
     @classmethod

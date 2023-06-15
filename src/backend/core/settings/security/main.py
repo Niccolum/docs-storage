@@ -1,8 +1,4 @@
-from pydantic import (
-    root_validator,  # pyright: ignore reportUnknownVariableType
-)
-
-from backend.settings.base import SettingsConfigMixin
+from backend.core.settings.base import SettingsConfigMixin
 
 from .cors import CorsSettings
 from .csp import CspSettings
