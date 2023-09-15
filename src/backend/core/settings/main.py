@@ -1,39 +1,20 @@
 from functools import lru_cache
-from typing import Any
 
-from pydantic import (
-    AnyHttpUrl,  # pyright: ignore reportUnknownVariableType
-    validator,
-)
+from pydantic_settings import SettingsConfigDict
 
-from .base import SettingsConfigMixin
+from .base import env_file
 from .common import CommonSettings
 from .mongo import MongoSettings
 from .security import WebSecureSettings
 
 
 class Settings(CommonSettings):
-    security: WebSecureSettings = WebSecureSettings()
-    mongo: MongoSettings = MongoSettings()
+    security: WebSecureSettings = WebSecureSettings()  # pyright: ignore reportGeneralTypeIssues
+    mongo: MongoSettings = MongoSettings() # pyright: ignore reportGeneralTypeIssues
 
-    @validator("security", pre=True)
-    @classmethod
-    def cors_allow_origins_builder(cls, security_settings: WebSecureSettings, values: dict[str, Any]) -> dict[str, Any]:
-        result: list[AnyHttpUrl] = []
-        port = values["app_port"]
-        scheme = "https" if security_settings.https else "http"
-
-        for raw_host in security_settings.cors_hosts:
-            host_url = AnyHttpUrl(host=raw_host, port=port, scheme=scheme)
-            values.append(host_url)
-
-        security_settings.cors_allow_origins = result
-        return security_settings
-
-    class Config(SettingsConfigMixin):
-        env_prefix = ""
+    model_config = SettingsConfigDict(env_prefix="", env_file=env_file, extra="allow")
 
 
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    return Settings()  # pyright: ignore reportGeneralTypeIssues

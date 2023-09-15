@@ -1,6 +1,6 @@
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
-from backend.core.settings.base import __version__
+from backend.core.constants import __version__
 
 
 class CommonSettings(BaseSettings):

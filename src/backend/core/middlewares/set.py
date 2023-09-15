@@ -22,7 +22,7 @@ from starlette_csrf.middleware import (
 if TYPE_CHECKING:
     from fastapi import FastAPI
 
-    from backend.core.settings.base import Settings
+    from backend.core.settings import Settings
 
 
 def set_middlewares(app: "FastAPI", settings: "Settings") -> None:

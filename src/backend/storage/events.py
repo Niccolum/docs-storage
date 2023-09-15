@@ -1,10 +1,17 @@
-from inspect import getmembers, isclass
 
-from backend.storage import mongo_schemas
-from backend.storage.db import get_engine
+from beanie import init_beanie
+from motor.motor_asyncio import AsyncIOMotorClient
+
+from backend.core.settings import get_settings
 
 
-async def init_mongo_models() -> None:
-    engine = get_engine()
-    models = dict(getmembers(mongo_schemas, isclass)).values()
-    await engine.configure_database(models)
+async def setup_mongo() -> None:
+    settings = get_settings()
+
+    client = AsyncIOMotorClient(settings.mongo.dsn)
+    await init_beanie(
+        database=client.db_name,
+        document_models=[
+            "storage.mongo_schemas.file_meta.FileMeta",  # pyright: ignore reportUnknownArgumentType
+        ],
+    )

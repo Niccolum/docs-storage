@@ -1,9 +1,9 @@
 
 
-from pydantic import BaseSettings, MongoDsn
-from pydantic_computed import Computed, computed
+from pydantic import MongoDsn, computed_field
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from .base import SettingsConfigMixin
+from .base import env_file
 
 
 class MongoSettings(BaseSettings):
@@ -12,17 +12,13 @@ class MongoSettings(BaseSettings):
     database: str
     host: str
 
-    dsn: Computed[MongoDsn]
+    model_config = SettingsConfigDict(env_prefix="MONGO_", env_file=env_file, extra="allow")
 
-    @computed("dsn")
-    @staticmethod
-    def assemble_mongo_connection(username: str, password: str, host: str, **_: str) -> list[str]:
+    @computed_field
+    def dsn(self) -> MongoDsn:
         return MongoDsn.build(
             scheme="mongodb",
-            user=username,
-            password=password,
-            host=host,
+            username=self.username,
+            password=self.password,
+            host=self.host,
         )
-
-    class Config(SettingsConfigMixin):
-        env_prefix = "MONGO_"

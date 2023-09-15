@@ -1,7 +1,6 @@
 import logging
-from collections.abc import Generator
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import Any
 
 from fastapi import FastAPI
 
@@ -9,13 +8,13 @@ from backend.core.api.router import api_router
 from backend.core.logging_config import logging_setup
 from backend.core.middlewares import set_middlewares
 from backend.core.settings import get_settings
-from backend.storage.events import init_mongo_models
+from backend.storage.events import setup_mongo
 
 logger = logging.getLogger(__name__)
 
 @asynccontextmanager
-async def lifespan(_: FastAPI) -> Generator[dict[str, Any], None, None]:
-    init_mongo_models()
+async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+    await setup_mongo()
     yield
 
 def create_app() -> FastAPI:
