@@ -4,3 +4,5 @@ __pycache__
 .secret.env
 .ruff_cache
 .venv
+mongo_data
+!mongo_data/.gitkeep
