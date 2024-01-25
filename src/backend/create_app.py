@@ -5,17 +5,20 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from backend.core.api.router import api_router
+from backend.core.events import setup_mongo, teardown_mongo
 from backend.core.logging_config import logging_setup
 from backend.core.middlewares import set_middlewares
 from backend.core.settings import get_settings
-from backend.storage.events import setup_mongo
 
 logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     await setup_mongo()
     yield
+    await teardown_mongo()
+
 
 def create_app() -> FastAPI:
     logging_setup()

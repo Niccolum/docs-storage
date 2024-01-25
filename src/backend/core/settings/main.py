@@ -6,9 +6,10 @@ from .base import env_file
 from .common import CommonSettings
 from .mongo import MongoSettings
 from .security import WebSecureSettings
+from .storage import StorageSettings
 
 
-class Settings(CommonSettings):
+class Settings(CommonSettings, StorageSettings):
     security: WebSecureSettings = WebSecureSettings()  # pyright: ignore reportGeneralTypeIssues
     mongo: MongoSettings = MongoSettings() # pyright: ignore reportGeneralTypeIssues
 

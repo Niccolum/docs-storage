@@ -18,6 +18,8 @@ def encrypt(raw_file: BinaryIO) -> tuple[BytesIO, bytes]:
         if not chunk:
             _ = encrypted_file.write(cipher.digest())
             _ = encrypted_file.seek(os.SEEK_SET)
+            _ = raw_file.seek(os.SEEK_SET)
+
             return encrypted_file, cipher.nonce
 
         encrypted_chunk = cipher.encrypt(chunk)

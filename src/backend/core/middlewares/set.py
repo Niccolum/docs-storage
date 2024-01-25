@@ -32,7 +32,7 @@ def set_middlewares(app: "FastAPI", settings: "Settings") -> None:
 def _set_secure_middlewares(app: "FastAPI", settings: "Settings") -> None:
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[str(origin) for origin in settings.security.cors_allow_origins],
+        allow_origins=[str(origin) for origin in settings.security.cors_allow_origins],  # pyright: ignore reportGeneralTypeIssues
         allow_credentials=settings.security.cors_allow_credentials,
         allow_methods=settings.security.cors_allow_methods,
         allow_headers=settings.security.cors_allow_headers,
@@ -61,7 +61,7 @@ def _set_secure_middlewares(app: "FastAPI", settings: "Settings") -> None:
         ReferrerPolicy, Option={"Referrer-Policy": settings.security.referrer_policy},
     )
     app.add_middleware(
-        xXSSProtection, Option={"X-XSS-Protection": settings.security.x_xss_protection},
+        xXSSProtection,
     )
     app.add_middleware(
         XDNSPrefetchControl,
