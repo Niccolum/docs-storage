@@ -37,3 +37,7 @@ ignore=
     FNE003,
     # FNE008 Name of functions ends with it's first argument name
     FNE008,
+
+per-file-ignores=
+    # NQA103 "# noqa: X000" has unmatched codes, remove X000
+    **/tests/**.py:NQA103,

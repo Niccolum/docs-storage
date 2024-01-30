@@ -55,8 +55,8 @@ class DirMetaController:
 
     async def ls(self, *, path: FilePath) -> AsyncIterator[FilePath]:
         async for document in self.db_dao.ls(path):
-            if not self.os_dao.is_exists(document.path):
-                self.os_dao.delete(document.path / document.filename)
+            if not self.os_dao.is_exists(document.path / document.filename):
+                await self.db_dao.delete(path=document.path, filename=document.filename)
                 continue
             yield document.path / document.filename
 
@@ -79,4 +79,4 @@ class DirMetaController:
 
         if errors:
             str_errors = "\n".join(errors)
-            raise FileNotFoundError(f"Files: \n{str_errors} not exists")
+            raise FileNotFoundError(f"Files: \n{str_errors}\n not exists")

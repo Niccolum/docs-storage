@@ -63,14 +63,17 @@ class MongoFileMetaDAO:
             ),
         ).delete()
 
-    async def ls(self, path: FilePath) -> AsyncIterator[FileMetaDAOSchema]:
+    async def ls(self, path: FilePath) -> AsyncIterator[FileMetaDAOSchema | DirMetaDAOSchema]:
         async for document in FileMetaDocument.find(
-            RegEx(
-                FileMetaDocument.path,
-                pattern=f"^{path}.+?/",
-                options="m",
-            ),
+            FileMetaDocument.path == path,
+            FileMetaDocument.type_ != SupportedFileTypes.DIR,
         ).project(FileMetaDAOSchema):
+            yield document
+
+        async for document in FileMetaDocument.find(
+            FileMetaDocument.path == path,
+            FileMetaDocument.type_ == SupportedFileTypes.DIR,
+        ).project(DirMetaDAOSchema):
             yield document
 
     async def regex_update(self, key: str, old_value: str, new_value: str) -> None:
@@ -97,8 +100,15 @@ class MongoFileMetaDAO:
             ],
         )
 
-    async def get_all(self) -> AsyncIterator[FileMetaDAOSchema]:
-        async for document in FileMetaDocument.find_all().project(FileMetaDAOSchema):
+    async def get_all(self) -> AsyncIterator[FileMetaDAOSchema | DirMetaDAOSchema]:
+        async for document in FileMetaDocument.find(FileMetaDocument.type_ != SupportedFileTypes.DIR).project(
+            FileMetaDAOSchema,
+        ):
+            yield document
+
+        async for document in FileMetaDocument.find(FileMetaDocument.type_ == SupportedFileTypes.DIR).project(
+            DirMetaDAOSchema,
+        ):
             yield document
 
     async def is_exists(

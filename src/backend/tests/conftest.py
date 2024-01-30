@@ -102,18 +102,22 @@ def generate_image():
 
 
 @pytest.fixture()
-async def file_meta_document_factory(_init_beanie: None, faker: "Faker"):
+async def file_meta_document_factory(_init_beanie: None, file_meta_document_teardown: None, faker: "Faker"):
     async def wrapper(**kwargs: Any) -> FileMetaDocument:
         type_ = kwargs.get("type_", faker.enum(SupportedFileTypes))
         document = FileMetaDocument(
             path=kwargs.get("path", Path(faker.file_path(depth=3)).parent),
             filename=kwargs.get("filename", faker.file_name()),
             type_=type_,
-            icon=kwargs.get("icon", Binary(faker.pystr().encode())),
+            icon=kwargs.get("icon", None if type_ == SupportedFileTypes.DIR else Binary(faker.pystr().encode())),
             nonce=kwargs.get("nonce", None if type_ == SupportedFileTypes.DIR else faker.pystr().encode()),
         )
         return await document.create()
 
-    yield wrapper
+    return wrapper
 
+
+@pytest.fixture()
+async def file_meta_document_teardown():
+    yield
     _ = await FileMetaDocument.delete_all()
