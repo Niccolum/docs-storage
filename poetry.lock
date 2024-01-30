@@ -301,6 +301,22 @@ pycodestyle = ">=2.11.0,<2.12.0"
 pyflakes = ">=3.2.0,<3.3.0"
 
 [[package]]
+name = "flake8-pyproject"
+version = "1.2.3"
+description = "Flake8 plug-in loading the configuration from pyproject.toml"
+optional = false
+python-versions = ">= 3.6"
+files = [
+    {file = "flake8_pyproject-1.2.3-py3-none-any.whl", hash = "sha256:6249fe53545205af5e76837644dc80b4c10037e73a0e5db87ff562d75fb5bd4a"},
+]
+
+[package.dependencies]
+Flake8 = ">=5"
+
+[package.extras]
+dev = ["pyTest", "pyTest-cov"]
+
+[[package]]
 name = "gitdb"
 version = "4.0.11"
 description = "Git Object Database"
@@ -513,35 +529,6 @@ files = [
     {file = "mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8"},
     {file = "mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"},
 ]
-
-[[package]]
-name = "mongomock"
-version = "4.1.2"
-description = "Fake pymongo stub for testing simple MongoDB-dependent code"
-optional = false
-python-versions = "*"
-files = [
-    {file = "mongomock-4.1.2-py2.py3-none-any.whl", hash = "sha256:08a24938a05c80c69b6b8b19a09888d38d8c6e7328547f94d46cadb7f47209f2"},
-    {file = "mongomock-4.1.2.tar.gz", hash = "sha256:f06cd62afb8ae3ef63ba31349abd220a657ef0dd4f0243a29587c5213f931b7d"},
-]
-
-[package.dependencies]
-packaging = "*"
-sentinels = "*"
-
-[[package]]
-name = "mongomock-motor"
-version = "0.0.26"
-description = "Library for mocking AsyncIOMotorClient built on top of mongomock."
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "mongomock_motor-0.0.26-py3-none-any.whl", hash = "sha256:fc193b5d79fc773cf823f056fc6ec91e09df93f6423ac73c1e597641adc096a4"},
-    {file = "mongomock_motor-0.0.26.tar.gz", hash = "sha256:2a2ce04e8280e6a1a334d8950969aafe0ab57b47d41882feb1d4e2a3ce7f0039"},
-]
-
-[package.dependencies]
-mongomock = ">=3.23.0,<5.0.0"
 
 [[package]]
 name = "motor"
@@ -1332,16 +1319,6 @@ files = [
 ]
 
 [[package]]
-name = "sentinels"
-version = "1.0.0"
-description = "Various objects to denote special meanings in python"
-optional = false
-python-versions = "*"
-files = [
-    {file = "sentinels-1.0.0.tar.gz", hash = "sha256:7be0704d7fe1925e397e92d18669ace2f619c92b5d4eb21a89f31e026f9ff4b1"},
-]
-
-[[package]]
 name = "setuptools"
 version = "69.0.3"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
@@ -1499,4 +1476,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "37e07f0b72d2ec2f4e779a9a5361b9d061d2de88761ecc8641421b5e4d1d71f6"
+content-hash = "fd46485101042e2327581e7553740a75470d1e0956c8cdb3a9e2bc73555a6dcd"
