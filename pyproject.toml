@@ -58,7 +58,7 @@ build-backend = "poetry.core.masonry.api"
 # pytest
 
 [tool.pytest.ini_options]
-addopts = "--cov-report term --reverse"
+addopts = "--cov=src --cov-report term --reverse"
 norecursedirs = ".venv mongo_data"
 asyncio_mode = "auto"
 filterwarnings = [
