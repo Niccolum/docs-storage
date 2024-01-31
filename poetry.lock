@@ -1162,20 +1162,6 @@ pytest = ">=7.4.3"
 test = ["covdefaults (>=2.3)", "coverage (>=7.3.2)", "pytest-mock (>=3.12)"]
 
 [[package]]
-name = "pytest-lazy-fixture"
-version = "0.6.3"
-description = "It helps to use fixtures in pytest.mark.parametrize"
-optional = false
-python-versions = "*"
-files = [
-    {file = "pytest-lazy-fixture-0.6.3.tar.gz", hash = "sha256:0e7d0c7f74ba33e6e80905e9bfd81f9d15ef9a790de97993e34213deb5ad10ac"},
-    {file = "pytest_lazy_fixture-0.6.3-py3-none-any.whl", hash = "sha256:e0b379f38299ff27a653f03eaa69b08a6fd4484e46fd1c9907d984b9f9daeda6"},
-]
-
-[package.dependencies]
-pytest = ">=3.2.5"
-
-[[package]]
 name = "pytest-mock"
 version = "3.12.0"
 description = "Thin-wrapper around the mock package for easier use with pytest"
@@ -1191,19 +1177,6 @@ pytest = ">=5.0"
 
 [package.extras]
 dev = ["pre-commit", "pytest-asyncio", "tox"]
-
-[[package]]
-name = "pytest-nice-parametrize"
-version = "1.0.1"
-description = "A small snippet for nicer PyTest's Parametrize"
-optional = false
-python-versions = "*"
-files = [
-    {file = "pytest-nice-parametrize-1.0.1.tar.gz", hash = "sha256:cf1e874d83238bb9af1c4140c9f59caad6eee0ab0c2f4cb77b098989263c49d7"},
-]
-
-[package.dependencies]
-pytest = "*"
 
 [[package]]
 name = "pytest-reverse"
@@ -1493,4 +1466,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "6f52f65719a48b7480576ec42d6ade408bd3ef5c69514245137311c5a612f620"
+content-hash = "02b060a3f212fa5b209e57165ed10494b5f02f3f40b404adc44a241b3799f3cd"
