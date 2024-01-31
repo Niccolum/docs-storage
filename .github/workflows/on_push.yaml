@@ -68,9 +68,9 @@ jobs:
       - name: create secret envfile
         run: |
           env_file=env/${{env.ENVIRONMENT}}/.secret.env
-          touch env_file
-          echo SECURITY_CSRF_SECRET_TOKEN="${{ secrets.SECURITY_CSRF_SECRET_TOKEN }}" >> env_file
-          echo SECURITY_AES_KEY=${{ secrets.SECURITY_AES_KEY }} >> env_file
+          touch $env_file
+          echo SECURITY_CSRF_SECRET_TOKEN="${{ secrets.SECURITY_CSRF_SECRET_TOKEN }}" >> $env_file
+          echo SECURITY_AES_KEY=${{ secrets.SECURITY_AES_KEY }} >> $env_file
 
       - name: Run tests
         run: poetry run pytest
