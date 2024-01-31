@@ -34,7 +34,6 @@ jobs:
 
     env:
       ENVIRONMENT: "dev"
-      MONGO_HOST: mongodb
 
     services:
       mongodb:
