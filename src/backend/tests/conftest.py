@@ -10,7 +10,7 @@ from fastapi import FastAPI
 from httpx import AsyncClient
 from PIL import Image
 
-from backend.core.events import get_mongo_client, setup_mongo, teardown_mongo
+from backend.core.events import setup_mongo, teardown_mongo
 from backend.create_app import create_app
 from backend.storage.constants import SupportedFileTypes
 from backend.storage.controllers.dir_meta import DirMetaController
@@ -21,12 +21,10 @@ from backend.storage.documents.file_meta import FileMetaDocument
 
 if TYPE_CHECKING:
     from faker import Faker
-    from motor.motor_asyncio import AsyncIOMotorClient
-    from pytest_mock import MockerFixture
 
 
 @pytest.fixture()
-def app(mock_motor_client: "AsyncIOMotorClient") -> FastAPI:
+def app() -> FastAPI:
     return create_app()
 
 
@@ -50,18 +48,7 @@ def override_settings(app: FastAPI) -> Callable[[Any, Any], contextlib.AbstractC
 
 
 @pytest.fixture()
-async def mock_motor_client(mocker: "MockerFixture") -> "AsyncGenerator[AsyncIOMotorClient, None]":
-    client = get_mongo_client()
-    _ = mocker.patch("backend.core.events.get_mongo_client", return_value=client)
-
-    yield client
-
-    client.close()
-    get_mongo_client.cache_clear()
-
-
-@pytest.fixture()
-async def _init_beanie(mock_motor_client: "AsyncIOMotorClient") -> AsyncGenerator[None]:  # pyright: ignore reportUnusedFunction
+async def _init_beanie() -> AsyncGenerator[None]:  # pyright: ignore reportUnusedFunction
     await setup_mongo()
 
     yield
