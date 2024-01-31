@@ -34,6 +34,7 @@ jobs:
 
     env:
       ENVIRONMENT: "dev"
+      MONGO_HOST: mongodb
 
     services:
       mongodb:
@@ -70,7 +71,6 @@ jobs:
         with:
           envkey_SECURITY_CSRF_SECRET_TOKEN: ${{ secrets.SECURITY_CSRF_SECRET_TOKEN }}
           envkey_SECURITY_AES_KEY: ${{ secrets.SECURITY_AES_KEY }}
-          envkey_MONGO_HOST: mongodb
           directory: env/${{env.ENVIRONMENT}}/
           file_name: .secret.env
           fail_on_empty: true
