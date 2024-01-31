@@ -23,6 +23,7 @@ class FileMetaDAOSchema(BaseModel):
     icon: io.BytesIO | None = None
     nonce: bytes
     created_date: dt.datetime = Field(default_factory=dt.datetime.utcnow)
+    updated_date: dt.datetime | None = None
 
     @field_validator("type_")
     @classmethod
@@ -48,6 +49,7 @@ class DirMetaDAOSchema(BaseModel):
     type_: SupportedFileTypes
     icon: None = None
     created_date: dt.datetime = Field(default_factory=dt.datetime.utcnow)
+    updated_date: dt.datetime | None = None
 
     @field_validator("type_")
     @classmethod

@@ -99,7 +99,8 @@ async def file_meta_document_factory(_init_beanie: None, file_meta_document_tear
             icon=kwargs.get("icon", None if type_ == SupportedFileTypes.DIR else Binary(faker.pystr().encode())),
             nonce=kwargs.get("nonce", None if type_ == SupportedFileTypes.DIR else faker.pystr().encode()),
         )
-        return await document.create()
+        d = await document.create()
+        return d
 
     return wrapper
 

@@ -26,4 +26,4 @@ async def teardown_mongo() -> None:
 def get_mongo_client() -> AsyncIOMotorClient:
     settings = get_settings()
 
-    return AsyncIOMotorClient(str(settings.mongo.dsn))
+    return AsyncIOMotorClient(str(settings.mongo.dsn), tz_aware=True)

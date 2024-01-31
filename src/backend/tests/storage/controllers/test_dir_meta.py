@@ -97,6 +97,8 @@ class TestRenameDir:
             assert dir_in_db.filename == new_filename
             assert dir_in_db.type_ == old_db_dir.type_ == SupportedFileTypes.DIR
             assert dir_in_db.icon == old_db_dir.icon
+            assert dir_in_db.created_date == old_db_dir.created_date
+            assert dir_in_db.updated_date != old_db_dir.updated_date
 
             file_in_db = await FileMetaDocument.find_one(
                 FileMetaDocument.path == new_base_path / new_filename,
@@ -106,6 +108,8 @@ class TestRenameDir:
             assert file_in_db.filename == old_db_file.filename == "baz.pdf"
             assert file_in_db.type_ == old_db_file.type_ == SupportedFileTypes.PDF
             assert file_in_db.icon == old_db_file.icon
+            assert file_in_db.created_date == old_db_file.created_date
+            assert file_in_db.updated_date != old_db_file.updated_date
 
     async def test_success_same_base_dir(
         self,
@@ -157,6 +161,8 @@ class TestRenameDir:
             assert dir_in_db.filename == new_filename
             assert dir_in_db.type_ == old_db_dir.type_ == SupportedFileTypes.DIR
             assert dir_in_db.icon == old_db_dir.icon
+            assert dir_in_db.created_date == old_db_dir.created_date
+            assert dir_in_db.updated_date != old_db_dir.updated_date
 
             file_in_db = await FileMetaDocument.find_one(
                 FileMetaDocument.path == base_path / new_filename,
@@ -166,6 +172,8 @@ class TestRenameDir:
             assert file_in_db.filename == old_db_file.filename == "baz.pdf"
             assert file_in_db.type_ == old_db_file.type_ == SupportedFileTypes.PDF
             assert file_in_db.icon == old_db_file.icon
+            assert file_in_db.created_date == old_db_file.created_date
+            assert file_in_db.updated_date != old_db_file.updated_date
 
 
 class TestCreateDir:

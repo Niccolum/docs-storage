@@ -1,3 +1,4 @@
+import datetime as dt
 from typing import AsyncIterator
 
 from beanie.operators import RegEx, Set
@@ -25,7 +26,7 @@ class MongoFileMetaDAO:
         await FileMetaDocument.find_one(
             FileMetaDocument.path == path,
             FileMetaDocument.filename == filename,
-        ).update(Set(data_to_update))  # pyright: ignore reportGeneralTypeIssues
+        ).update(Set(data_to_update | {"updated_date": dt.datetime.now(tz=dt.timezone.utc)}))  # pyright: ignore reportGeneralTypeIssues
 
     async def save(self, data: FileMetaDAOSchema | DirMetaDAOSchema, *, replace: bool) -> None:
         is_exists = await self.is_exists(path=data.path, filename=data.filename)
@@ -41,7 +42,10 @@ class MongoFileMetaDAO:
                 FileMetaDocument.path == document.path,
                 FileMetaDocument.filename == document.filename,
             ).upsert(
-                Set(data_to_update),
+                Set(
+                    data_to_update
+                    | {"updated_date": dt.datetime.now(tz=dt.timezone.utc).isoformat(sep=" ", timespec="seconds")},
+                ),
                 on_insert=document,
             )  # pyright: ignore reportGeneralTypeIssues
         else:
@@ -95,6 +99,7 @@ class MongoFileMetaDAO:
                                 "replacement": new_value,
                             },
                         },
+                        "updated_date": dt.datetime.now(tz=dt.timezone.utc).isoformat(sep=" ", timespec="seconds"),
                     },
                 ),
             ],

@@ -377,7 +377,8 @@ class TestRenameFile:
         assert new_object_in_db.type_ == file_meta_document.type_
         assert new_object_in_db.icon == file_meta_document.icon
         assert bytes(cast("Binary", new_object_in_db.nonce)) == file_meta_document.nonce
-        assert new_object_in_db.created_date != file_meta_document.created_date
+        assert new_object_in_db.created_date == file_meta_document.created_date
+        assert new_object_in_db.created_date != file_meta_document.updated_date
 
 
 class TestGetFile:
