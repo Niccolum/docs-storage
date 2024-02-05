@@ -21,7 +21,7 @@ classifiers = [
 python = "^3.11"
 gunicorn = "^21.2.0"
 uvicorn = { version = "^0.26.0", extras = ["standart"] }
-fastapi = "^0.109.0"
+fastapi = "^0.109.1"
 httpx = "^0.26.0"
 starlette-csrf = "^3.0.0"
 Secweb = "^1.9.1"
